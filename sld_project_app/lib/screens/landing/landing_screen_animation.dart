@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sld_project_app/screens/auth_screen/auth_screen.dart';
 import 'package:sld_project_app/screens/landing/components/care_view.dart';
 import 'package:sld_project_app/screens/landing/components/center_next_button.dart';
 import 'package:sld_project_app/screens/landing/components/mood_diary_view.dart';
@@ -109,5 +110,9 @@ class _LandingScreenAnimationState extends State<LandingScreenAnimation>
     }
   }
 
-  void _signUpClick() {}
+  void _signUpClick() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const AuthScreen(),
+    ));
+  }
 }

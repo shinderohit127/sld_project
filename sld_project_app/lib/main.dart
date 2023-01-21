@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sld_project_app/screens/auth_screen/auth_screen.dart';
 import 'package:sld_project_app/screens/landing/landing_screen_animation.dart';
 
 void main() {
@@ -24,8 +25,12 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        fontFamily: 'Open Sans',
       ),
       home: const LandingScreenAnimation(),
+      routes: {
+        '/auth': (context) => const AuthScreen(),
+      },
     );
   }
 }
