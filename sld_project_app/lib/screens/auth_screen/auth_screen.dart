@@ -1,10 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sld_project_app/screens/auth_screen/register_screen.dart';
+import '../../main.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
   @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    TextStyle linkStyle =
+        const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold);
     return Scaffold(
       backgroundColor: const Color(0xfff8eee4),
       body: SafeArea(
@@ -12,12 +34,12 @@ class AuthScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.health_and_safety_rounded,
                 size: 100,
                 color: Color(0xFF558B2F),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               // greeting text
@@ -32,7 +54,7 @@ class AuthScreen extends StatelessWidget {
                 height: 10,
               ),
               const Text(
-                'Log in to get started',
+                'Sign in to get started',
                 style: TextStyle(fontSize: 24),
               ),
               const SizedBox(
@@ -47,10 +69,12 @@ class AuthScreen extends StatelessWidget {
                       color: const Color(0xFFEEEEEE),
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(12)),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 20.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: emailController,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
                       ),
@@ -70,11 +94,13 @@ class AuthScreen extends StatelessWidget {
                       color: const Color(0xFFEEEEEE),
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(12)),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 20.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
+                      controller: passwordController,
+                      textInputAction: TextInputAction.done,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
                       ),
@@ -83,45 +109,92 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 35,
+                height: 25,
               ),
 
               // sign in button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Color(0xff81C784),
-                    borderRadius: BorderRadius.circular(12.0),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              //   child: Container(
+              //     padding: const EdgeInsets.all(20),
+              //     decoration: BoxDecoration(
+              //       color: const Color(0xff81C784),
+              //       borderRadius: BorderRadius.circular(12.0),
+              //     ),
+              //     child: const Center(
+              //         child: Text(
+              //       'Sign In',
+              //       style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.bold),
+              //     )),
+              //   ),
+              // ),
+              ElevatedButton(
+                onPressed: signIn,
+                style: ButtonStyle(
+                  textStyle: MaterialStateProperty.all(
+                    const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   ),
-                  child: Center(
-                      child: Text(
-                    'Sign In',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  )),
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.all(16.0),
+                  ),
+                  minimumSize: MaterialStateProperty.all(const Size(355, 40)),
+                  backgroundColor:
+                      MaterialStateProperty.all(const Color(0xFF558B2F)),
                 ),
+                child: const Text("Sign In"),
               ),
+
+              // ElevatedButton.icon(
+              //   icon: const Icon(
+              //     Icons.done_outline,
+              //     size: 24,
+              //   ),
+              //   style: ElevatedButton.styleFrom(
+              //       minimumSize: const Size.fromHeight(18),
+              //       padding: const EdgeInsets.all(16.0)),
+              //   label: const Text(
+              //     "Sign In",
+              //     style: TextStyle(fontSize: 18),
+              //   ),
+              //   onPressed: signIn,
+              // ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
 
               // sign up text
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Not a member? ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    'Register Now!',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blueAccent),
-                  )
+                  RichText(
+                      text: TextSpan(children: <TextSpan>[
+                    TextSpan(
+                        text: "Register Now!",
+                        style: linkStyle,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // debugPrint('Register text clicked');
+                            Navigator.pushReplacement<void, void>(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    const RegisterScreen(),
+                              ),
+                            );
+                          })
+                  ])),
+                  // Text(
+                  //   'Register Now!',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                  // ),
                 ],
               ),
             ],
@@ -129,5 +202,26 @@ class AuthScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+
+    // Navigator.of(context) not working!
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "649042770718",
+    "project_id": "sld-auth",
+    "storage_bucket": "sld-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649042770718:android:3bf4d3934ad5e48601a70f",
+        "android_client_info": {
+          "package_name": "com.example.sld_project_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649042770718-0ft4rnp7rnknci629h6u38oreen2t6hi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsjRmVRp3UG9840KxwQtqkUbmD2TzsGfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649042770718-0ft4rnp7rnknci629h6u38oreen2t6hi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
