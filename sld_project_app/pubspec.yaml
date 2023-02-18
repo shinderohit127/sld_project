@@ -67,6 +67,7 @@ flutter:
   assets:
         - assets/introduction_animation/
         - assets/
+        - assets/logos/logout.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

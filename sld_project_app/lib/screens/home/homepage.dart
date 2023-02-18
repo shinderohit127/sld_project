@@ -4,6 +4,8 @@ import 'package:sld_project_app/data/data.dart';
 import 'package:sld_project_app/model/speciality.dart';
 import 'package:sld_project_app/screens/help/help_view.dart';
 import 'package:flutter/services.dart';
+import 'package:sld_project_app/screens/questionnaire/disclaimers/parent_checklist_disclaimer.dart';
+import 'package:sld_project_app/screens/questionnaire/disclaimers/teachers_checklist_disclaimer.dart';
 
 String? selectedCategorie = "Adults";
 
@@ -75,6 +77,12 @@ class HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
+              leading: Image.asset(
+                "assets/logos/logout.png",
+                scale: 1.0,
+                height: 25.0,
+                width: 25.0,
+              ),
               title: const Text('Sign Out'),
               onTap: () => FirebaseAuth.instance.signOut(),
             ),
@@ -148,26 +156,174 @@ class HomePageState extends State<HomePage> {
               //         );
               //       }),
               // ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Container(
-                // height: 250,
-                child: ListView.builder(
-                    itemCount: specialities.length,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return SpecialistTile(
-                        imgAssetPath: specialities[index].imgAssetPath,
-                        speciality: specialities[index].speciality,
-                        description: specialities[index].description,
-                        backColor: specialities[index].backgroundColor,
-                      );
-                    }),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ParentsChecklistDisclaimer(),
+                  ));
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Color(0xffFBB97C),
+                      borderRadius: BorderRadius.circular(24)),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Checklist for Parents",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                              softWrap: true,
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              'Here is a brief description about the checklist. Checklist description needed here.',
+                              softWrap: true,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/img1.png",
+                              height: 160,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              SizedBox(
+              const SizedBox(
+                height: 5,
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const TeacherChecklistDisclaimer(),
+                  ));
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Color(0xffF69383),
+                      borderRadius: BorderRadius.circular(24)),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Checklist for Parents",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                              softWrap: true,
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              'Here is a brief description about the checklist. Checklist description needed here.',
+                              softWrap: true,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/img2.png",
+                              height: 160,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(top: 16, bottom: 16),
+                decoration: BoxDecoration(
+                    color: Color(0xffEACBCB),
+                    borderRadius: BorderRadius.circular(24)),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "General Information about Specific Learning Disabilities",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            softWrap: true,
+                          ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            'Here is a brief description about the checklist. Checklist description needed here.',
+                            softWrap: true,
+                            style: TextStyle(color: Colors.white, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            "assets/img3.png",
+                            height: 160,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
                 height: 20,
               ),
               // Text(
@@ -360,3 +516,21 @@ class SpecialistTile extends StatelessWidget {
 //     );
 //   }
 // }
+
+
+// const Text(
+//                       "Dummy container",
+//                       style: TextStyle(color: Colors.white, fontSize: 20),
+//                     ),
+//                     const SizedBox(
+//                       height: 6,
+//                     ),
+//                     const Text(
+//                       "Dummy description!",
+//                       style: TextStyle(color: Colors.white, fontSize: 13),
+//                     ),
+//                     Image.asset(
+//                       "assets/img1.png",
+//                       height: 160,
+//                       fit: BoxFit.fitHeight,
+//                     ),
