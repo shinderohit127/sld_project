@@ -84,7 +84,7 @@ class WelcomeView extends StatelessWidget {
                 padding:
                     EdgeInsets.only(left: 64, right: 64, top: 16, bottom: 16),
                 child: Text(
-                  "Stay organised and live stress-free with you-do app",
+                  "We understand that every child learns differently, which is why our app is tailored to identify different learning styles and provide customized support that best suits your child.",
                   textAlign: TextAlign.center,
                 ),
               ),

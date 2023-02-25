@@ -81,7 +81,7 @@ class RelaxView extends StatelessWidget {
               SlideTransition(
                 position: _relaxAnimation,
                 child: const Text(
-                  "Relax",
+                  "User Friendly",
                   style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -91,7 +91,7 @@ class RelaxView extends StatelessWidget {
                   padding:
                       EdgeInsets.only(left: 64, right: 64, top: 16, bottom: 16),
                   child: Text(
-                    "Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",
+                    "A user-friendly app that helps reduce the stress and anxiety that often comes with the process of identifying and addressing learning challenges",
                     textAlign: TextAlign.center,
                   ),
                 ),

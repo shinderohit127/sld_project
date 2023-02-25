@@ -4,6 +4,8 @@ import 'package:sld_project_app/data/data.dart';
 import 'package:sld_project_app/model/speciality.dart';
 import 'package:sld_project_app/screens/help/help_view.dart';
 import 'package:flutter/services.dart';
+import 'package:sld_project_app/screens/info_page/sld_info.dart';
+import 'package:sld_project_app/screens/profile/profile_view.dart';
 import 'package:sld_project_app/screens/questionnaire/disclaimers/parent_checklist_disclaimer.dart';
 import 'package:sld_project_app/screens/questionnaire/disclaimers/teachers_checklist_disclaimer.dart';
 
@@ -35,7 +37,7 @@ class HomePageState extends State<HomePage> {
         elevation: 0.0,
         systemOverlayStyle: SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.blue, // Navigation bar
-          statusBarColor: Color(0xffFBB97C), // Status bar
+          // statusBarColor: Color(0xffFBB97C), // Status bar
         ),
         iconTheme: IconThemeData(color: Colors.black87),
         actions: [
@@ -65,13 +67,39 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text('Profile'),
+              leading: Image.asset(
+                "assets/logos/profile.png",
+                scale: 1.0,
+                height: 25.0,
+                width: 25.0,
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ProfileView(),
+                ));
+              },
+            ),
+            ListTile(
+              leading: Image.asset(
+                "assets/logos/sync.png",
+                scale: 1.0,
+                height: 25.0,
+                width: 25.0,
+              ),
+              title: const Text('Sync your progress here'),
               onTap: () {
                 // Update the state of the app.
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              leading: Image.asset(
+                "assets/logos/badge_logo.png",
+                scale: 1.0,
+                height: 25.0,
+                width: 25.0,
+              ),
+              title: const Text('Select your Role'),
               onTap: () {
                 // Update the state of the app.
               },
@@ -132,7 +160,7 @@ class HomePageState extends State<HomePage> {
                 height: 30,
               ),
               Text(
-                "Categories",
+                "Screening Phases",
                 style: TextStyle(
                     color: Colors.black87.withOpacity(0.8),
                     fontSize: 25,
@@ -194,6 +222,16 @@ class HomePageState extends State<HomePage> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 13),
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Progress: 40%",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 16),
+                            ),
                           ],
                         ),
                       ),
@@ -239,7 +277,7 @@ class HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: const [
                             Text(
-                              "Checklist for Parents",
+                              "Checklist for Teachers",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                               softWrap: true,
@@ -252,6 +290,16 @@ class HomePageState extends State<HomePage> {
                               softWrap: true,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 13),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Progress: 70%",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 16),
                             ),
                           ],
                         ),
@@ -277,50 +325,167 @@ class HomePageState extends State<HomePage> {
                 height: 5,
               ),
 
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(top: 16, bottom: 16),
-                decoration: BoxDecoration(
-                    color: Color(0xffEACBCB),
-                    borderRadius: BorderRadius.circular(24)),
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "General Information about Specific Learning Disabilities",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                            softWrap: true,
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            'Here is a brief description about the checklist. Checklist description needed here.',
-                            softWrap: true,
-                            style: TextStyle(color: Colors.white, fontSize: 13),
-                          ),
-                        ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SLDInfoView(),
+                  ));
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Color(0xffEACBCB),
+                      borderRadius: BorderRadius.circular(24)),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "General Information about Specific Learning Disabilities",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                              softWrap: true,
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              "Find out more about SLDs. Click here to get started",
+                              softWrap: true,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 13),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "assets/img3.png",
-                            height: 160,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/img3.png",
+                              height: 160,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Color(0xffFBB97C),
+                      borderRadius: BorderRadius.circular(24)),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Gamified Checklist for Children",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                              softWrap: true,
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              "This is a Gamified checklist intented for children to take. Click here to get started",
+                              softWrap: true,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/img2.png",
+                              height: 160,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                      color: Colors.pink[200],
+                      borderRadius: BorderRadius.circular(24)),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "My Reports",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                              softWrap: true,
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              "Check your reports here",
+                              softWrap: true,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/img1.png",
+                              height: 160,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(

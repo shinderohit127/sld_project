@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  bool isParentTapped = false;
+  bool isTeacherTapped = false;
+  String role = "";
+  RegisterScreen(
+      {super.key, required this.isParentTapped, required this.isTeacherTapped});
 
   @override
   Widget build(BuildContext context) {
+    if (isParentTapped) {
+      role = "PARENT";
+    } else {
+      role = "TEACHER";
+    }
     return Scaffold(
       backgroundColor: const Color(0xfff8eee4),
       body: SafeArea(
@@ -28,6 +37,13 @@ class RegisterScreen extends StatelessWidget {
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("selected role: $role"),
+                SizedBox(
+                  height: 20,
                 ),
                 // const SizedBox(
                 //   height: 10,
