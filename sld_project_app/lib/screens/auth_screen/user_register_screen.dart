@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sld_project_app/screens/auth_screen/auth_screen.dart';
+import 'package:sld_project_app/screens/home/homepage.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
   const UserRegistrationScreen({super.key});
@@ -284,7 +287,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                     height: 30,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (_formKey.currentState!.validate()) {
                         print(_childNameController.text.trim());
                         print(_parentNameController.text.trim());
@@ -292,6 +295,36 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         print(_confirmPassword);
                         print(_phoneNumber);
                         print(_teacherEmailController.text.trim());
+
+                        try {
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .createUserWithEmailAndPassword(
+                                  email: _emailController.text.trim(),
+                                  password: _confirmPassword);
+                          FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(userCredential.user!.uid)
+                              .set({
+                            'childName': _childNameController.text.trim(),
+                            'contactNumber': _phoneNumber,
+                            'email': _emailController.text.trim(),
+                            'parentName': _parentNameController.text.trim(),
+                            'teacherEmail': _teacherEmailController.text.trim()
+                          });
+
+                          // navigate to home page
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => HomePage()));
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            print('weak password');
+                          } else if (e.code == 'email-already-in-use') {
+                            print('email already in use');
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                       }
                     },
                     child: Container(
