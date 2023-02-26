@@ -6,6 +6,7 @@ import 'package:sld_project_app/screens/auth_screen/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sld_project_app/screens/home/homepage.dart';
+import 'package:sld_project_app/screens/home/teacher_homepage.dart';
 
 class TeacherRegistrationScreen extends StatefulWidget {
   const TeacherRegistrationScreen({super.key});
@@ -248,16 +249,17 @@ class _TeacherRegistrationScreenState extends State<TeacherRegistrationScreen> {
                                   password: _confirmPassword);
                           FirebaseFirestore.instance
                               .collection('teachers')
-                              .doc(userCredential.user!.uid)
+                              .doc(_emailController.text.trim())
                               .set({
                             'name': _nameController.text.trim(),
                             'email': _emailController.text.trim(),
                             'contactNumber': _phoneNumber,
+                            'students': [""],
                           });
 
                           // navigate to homepage
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                              builder: (context) => const TeacherHomePage()));
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('weak password');

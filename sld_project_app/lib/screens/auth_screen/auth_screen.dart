@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sld_project_app/screens/role_select/role_select_view.dart';
+import 'package:sld_project_app/screens/auth_screen/role_select/role_select_view.dart';
+import 'package:sld_project_app/screens/home/teacher_homepage.dart';
+import 'package:sld_project_app/screens/home/user_homepage.dart';
 import '../../main.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -14,6 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isObscure = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  String role = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,6 +151,25 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
+  Future<void> checkRole(String emailId) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('teachers')
+          .doc(emailId)
+          .get();
+      if (snapshot.exists) {
+        // print('role is teacher');
+        role = "teacher";
+      } else {
+        role = "user";
+      }
+      print(
+          " ------------------------------- role is $role ------------------------------ ");
+    } catch (e) {
+      print('user not found');
+    }
+  }
+
   Future signIn() async {
     showDialog(
       context: context,
@@ -160,12 +183,24 @@ class _AuthScreenState extends State<AuthScreen> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+      await checkRole(emailController.text.trim());
+      print(
+          " ------------------------------- role is $role ------------------------------ ");
+      if (role == "teacher") {
+        print('redirecting to teacher homepage');
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const TeacherHomePage()));
+      } else {
+        print('redirecting to user homepage');
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const UserHomePage()));
+      }
     } on FirebaseAuthException catch (e) {
       print(e);
     }
 
     // Navigator.of(context) not working!
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
 

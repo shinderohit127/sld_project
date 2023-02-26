@@ -13,34 +13,55 @@ import 'package:sld_project_app/screens/questionnaire/disclaimers/teachers_check
 // firebase database
 import 'package:firebase_database/firebase_database.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class UserHomePage extends StatefulWidget {
+  const UserHomePage({super.key});
 
   @override
-  HomePageState createState() => HomePageState();
+  UserHomePageState createState() => UserHomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class UserHomePageState extends State<UserHomePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  final userEmail = FirebaseAuth.instance.currentUser!.email;
+  Map<String, dynamic> docRef = {
+    "childName": "",
+    "contactNumber": "",
+    "parentName": "",
+    "email": "",
+    "teacherEmail": ""
+  };
+  getData() async {
+    final db = FirebaseFirestore.instance;
+    this.docRef = await db
+        .collection("users")
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      print(data);
+      return data;
+    });
+    print(this.docRef["parentName"]);
   }
 
   // final db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    final userEmail = FirebaseAuth.instance.currentUser!.email;
-
+    getData();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xffF7EBE1),
         elevation: 0.0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.blue, // Navigation bar
           // statusBarColor: Color(0xffFBB97C), // Status bar
         ),
-        iconTheme: const IconThemeData(color: Colors.black87),
+        iconTheme: const IconThemeData(color: Color(0xFF1B383A)),
         actions: [
           // help view redirect
           IconButton(
@@ -61,7 +82,7 @@ class HomePageState extends State<HomePage> {
           children: [
             DrawerHeader(
               child: Text(
-                "Welcome \n$userEmail!",
+                "Welcome \n${this.docRef["parentName"]}!",
                 style: TextStyle(
                   fontSize: 32,
                 ),
@@ -95,18 +116,6 @@ class HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: Image.asset(
-                "assets/logos/badge_logo.png",
-                scale: 1.0,
-                height: 25.0,
-                width: 25.0,
-              ),
-              title: const Text('Select your Role'),
-              onTap: () {
-                // Update the state of the app.
-              },
-            ),
-            ListTile(
-              leading: Image.asset(
                 "assets/logos/logout.png",
                 scale: 1.0,
                 height: 25.0,
@@ -120,7 +129,7 @@ class HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
+          color: const Color(0xffF7EBE1),
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,7 +140,7 @@ class HomePageState extends State<HomePage> {
               Text(
                 "Find Your Consultation",
                 style: TextStyle(
-                    color: Colors.black87.withOpacity(0.8),
+                    color: Color(0xFF1B383A),
                     fontSize: 30,
                     fontWeight: FontWeight.w600),
               ),
@@ -142,7 +151,7 @@ class HomePageState extends State<HomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 height: 50,
                 decoration: BoxDecoration(
-                    color: Color(0xffEFEFEF),
+                    color: const Color(0xffF7EBE1),
                     borderRadius: BorderRadius.circular(14)),
                 child: TextField(
                   decoration: InputDecoration(
@@ -163,28 +172,10 @@ class HomePageState extends State<HomePage> {
               Text(
                 "Screening Phases",
                 style: TextStyle(
-                    color: Colors.black87.withOpacity(0.8),
+                    color: Color(0xFF1B383A),
                     fontSize: 25,
                     fontWeight: FontWeight.w600),
               ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // Container(
-              //   height: 30,
-              //   child: ListView.builder(
-              //       itemCount: categories.length,
-              //       shrinkWrap: true,
-              //       physics: ClampingScrollPhysics(),
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         return CategorieTile(
-              //           categorie: categories[index],
-              //           isSelected: selectedCategorie == categories[index],
-              //           context: this,
-              //         );
-              //       }),
-              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -243,75 +234,6 @@ class HomePageState extends State<HomePage> {
                           children: [
                             Image.asset(
                               "assets/img1.png",
-                              height: 160,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const TeacherChecklistDisclaimer(),
-                  ));
-                },
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 16, bottom: 16),
-                  decoration: BoxDecoration(
-                      color: Color(0xffF69383),
-                      borderRadius: BorderRadius.circular(24)),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Checklist for Teachers",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                              softWrap: true,
-                            ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              'Here is a brief description about the checklist. Checklist description needed here.',
-                              softWrap: true,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 13),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Progress: 70%",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/img2.png",
                               height: 160,
                               fit: BoxFit.fitHeight,
                             ),
@@ -511,44 +433,6 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-// class CategorieTile extends StatefulWidget {
-//   final String? categorie;
-//   final bool? isSelected;
-//   final HomePageState? context;
-//   CategorieTile({this.categorie, this.isSelected, this.context});
-
-//   @override
-//   _CategorieTileState createState() => _CategorieTileState();
-// }
-
-// class _CategorieTileState extends State<CategorieTile> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         widget.context!.setState(() {
-//           selectedCategorie = widget.categorie;
-//         });
-//       },
-//       child: Container(
-//         alignment: Alignment.center,
-//         padding: EdgeInsets.symmetric(horizontal: 20),
-//         margin: EdgeInsets.only(left: 8),
-//         height: 30,
-//         decoration: BoxDecoration(
-//             color: widget.isSelected! ? Color(0xffFFD0AA) : Colors.white,
-//             borderRadius: BorderRadius.circular(30)),
-//         child: Text(
-//           widget.categorie!,
-//           style: TextStyle(
-//               color:
-//                   widget.isSelected! ? Color(0xffFC9535) : Color(0xffA1A1A1)),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class SpecialistTile extends StatelessWidget {
   final String? imgAssetPath;
   final String? speciality;
@@ -592,111 +476,3 @@ class SpecialistTile extends StatelessWidget {
     );
   }
 }
-
-// class DoctorsTile extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         Navigator.push(
-//             context, MaterialPageRoute(builder: (context) => DoctorsInfo()));
-//       },
-//       child: Container(
-//         decoration: BoxDecoration(
-//             color: Color(0xffFFEEE0), borderRadius: BorderRadius.circular(20)),
-//         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-//         child: Row(
-//           children: <Widget>[
-//             Image.asset(
-//               "assets/doctor_pic.png",
-//               height: 50,
-//             ),
-//             SizedBox(
-//               width: 17,
-//             ),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: <Widget>[
-//                 Text(
-//                   "Dr. Stefeni Albert",
-//                   style: TextStyle(color: Color(0xffFC9535), fontSize: 19),
-//                 ),
-//                 SizedBox(
-//                   height: 2,
-//                 ),
-//                 Text(
-//                   "Heart Speailist",
-//                   style: TextStyle(fontSize: 15),
-//                 )
-//               ],
-//             ),
-//             Spacer(),
-//             Container(
-//               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 9),
-//               decoration: BoxDecoration(
-//                   color: Color(0xffFBB97C),
-//                   borderRadius: BorderRadius.circular(13)),
-//               child: Text(
-//                 "Call",
-//                 style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 13,
-//                     fontWeight: FontWeight.w500),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final user = FirebaseAuth.instance.currentUser!;
-//     return Scaffold(
-//       body: SafeArea(
-//         child: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               const Text(
-//                 "Home Page",
-//                 style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
-//               ),
-//               const Text("Signed in as"),
-//               const SizedBox(
-//                 height: 10,
-//               ),
-//               Text(
-//                 user.email!,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// const Text(
-//                       "Dummy container",
-//                       style: TextStyle(color: Colors.white, fontSize: 20),
-//                     ),
-//                     const SizedBox(
-//                       height: 6,
-//                     ),
-//                     const Text(
-//                       "Dummy description!",
-//                       style: TextStyle(color: Colors.white, fontSize: 13),
-//                     ),
-//                     Image.asset(
-//                       "assets/img1.png",
-//                       height: 160,
-//                       fit: BoxFit.fitHeight,
-//                     ),
