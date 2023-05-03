@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sld_project_app/screens/auth_screen/auth_screen.dart';
 
 // firebase auth packages
@@ -255,11 +256,17 @@ class _TeacherRegistrationScreenState extends State<TeacherRegistrationScreen> {
                             'email': _emailController.text.trim(),
                             'contactNumber': _phoneNumber,
                             'students': [""],
+                            'role': "teacher",
                           });
 
+                          // set role to teacher
+                          setTeacherRole();
+
                           // navigate to homepage
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const TeacherHomePage()));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TeacherHomePage()));
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('weak password');
@@ -298,5 +305,10 @@ class _TeacherRegistrationScreenState extends State<TeacherRegistrationScreen> {
         ]),
       ),
     );
+  }
+
+  setTeacherRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('role', 'teacher');
   }
 }

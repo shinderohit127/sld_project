@@ -68,10 +68,14 @@ class WelcomeView extends StatelessWidget {
                   constraints:
                       const BoxConstraints(maxWidth: 350, maxHeight: 350),
                   child: Image.asset(
-                    'assets/introduction_animation/welcome.png',
+                    'assets/updated_logos/Welcome_alternative-removebg-preview.png',
                     fit: BoxFit.contain,
+                    height: 275,
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               SlideTransition(
                 position: _welcomeFirstHalfAnimation,

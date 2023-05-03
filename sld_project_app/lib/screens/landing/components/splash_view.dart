@@ -29,11 +29,19 @@ class _SplashViewState extends State<SplashView> {
         child: Column(
           children: [
             SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+            ),
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Image.asset(
-                'assets/introduction_animation/introduction_image.png',
-                fit: BoxFit.cover,
+                'assets/updated_logos/Welcome_alternative-removebg-preview.png',
+                height: 275,
+                width: 200,
+                fit: BoxFit.contain,
               ),
+            ),
+            const SizedBox(
+              height: 24,
             ),
             const Padding(
               padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
@@ -42,15 +50,15 @@ class _SplashViewState extends State<SplashView> {
                 style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               ),
             ),
-            // const Padding(
-            //   padding: EdgeInsets.only(left: 64, right: 64),
-            //   child: Text(
-            //     "Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",
-            //     textAlign: TextAlign.center,
-            //   ),
-            // ),
+            const Padding(
+              padding: EdgeInsets.only(left: 64, right: 64),
+              child: Text(
+                "Early detection for a brighter future",
+                textAlign: TextAlign.center,
+              ),
+            ),
             const SizedBox(
-              height: 48,
+              height: 24,
             ),
             Padding(
               padding: EdgeInsets.only(

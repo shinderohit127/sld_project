@@ -111,7 +111,7 @@ class _LandingScreenAnimationState extends State<LandingScreenAnimation>
   }
 
   void _signUpClick() {
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => const AuthScreen(),
     ));
   }

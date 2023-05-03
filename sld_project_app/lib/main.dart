@@ -1,16 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sld_project_app/screens/auth_screen/auth_screen.dart';
 import 'package:sld_project_app/screens/auth_screen/register_screen.dart';
 import 'package:sld_project_app/screens/home/homepage.dart';
+import 'package:sld_project_app/screens/home/teacher_homepage.dart';
+import 'package:sld_project_app/screens/home/user_homepage.dart';
 import 'package:sld_project_app/screens/landing/landing_screen_animation.dart';
-// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sld_project_app/screens/auth_screen/role_select/role_select_view.dart';
+import 'globals.dart' as globals;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await Future.delayed(const Duration(seconds: 1));
+  final prefs = await SharedPreferences.getInstance();
+  final role = prefs.getString('role');
+  if (role == null) {
+    globals.role = "";
+  } else {
+    globals.role = role;
+  }
+  // await Future.delayed(const Duration(seconds: 1));
 
   runApp(const MyApp());
 }
@@ -23,6 +35,8 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  final bool isParentTapped = false;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,7 +47,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Open Sans',
-        backgroundColor: const Color(0xffF7EBE1),
       ),
       home: const StreamBuilderWidget(),
       routes: {
@@ -45,6 +58,13 @@ class MyApp extends StatelessWidget {
 
 class StreamBuilderWidget extends StatelessWidget {
   const StreamBuilderWidget({super.key});
+
+  // Future<String> readFromSharedPreferences(String role) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('role') ?? '';
+  // }
+
+  // String role = await readFromSharedPreferences('role');
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -59,10 +79,12 @@ class StreamBuilderWidget extends StatelessWidget {
               return const Center(
                 child: Text("Something went wrong"),
               );
-            } else if (snapshot.hasData) {
-              return HomePage();
+            } else if (snapshot.hasData && globals.role == "user") {
+              return const UserHomePage();
+            } else if (snapshot.hasData && globals.role == "teacher") {
+              return const TeacherHomePage();
             } else {
-              return const LandingScreenAnimation();
+              return const AuthScreen();
             }
           },
         ),

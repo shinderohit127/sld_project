@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,9 @@ import 'package:sld_project_app/screens/auth_screen/role_select/role_select_view
 import 'package:sld_project_app/screens/home/teacher_homepage.dart';
 import 'package:sld_project_app/screens/home/user_homepage.dart';
 import '../../main.dart';
+
+// globals
+import 'package:sld_project_app/globals.dart' as globals;
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -188,11 +193,13 @@ class _AuthScreenState extends State<AuthScreen> {
           " ------------------------------- role is $role ------------------------------ ");
       if (role == "teacher") {
         print('redirecting to teacher homepage');
-        Navigator.of(context).push(
+        globals.role = "teacher";
+        Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const TeacherHomePage()));
       } else {
         print('redirecting to user homepage');
-        Navigator.of(context).push(
+        globals.role = "user";
+        Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const UserHomePage()));
       }
     } on FirebaseAuthException catch (e) {

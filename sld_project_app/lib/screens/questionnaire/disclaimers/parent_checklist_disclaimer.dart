@@ -21,6 +21,7 @@ class _ParentsChecklistDisclaimerState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF7EBE1),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
@@ -34,6 +35,7 @@ class _ParentsChecklistDisclaimerState
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
+                  color: Color(0xFF1B383A),
                 ),
               ),
               const SizedBox(
@@ -41,7 +43,10 @@ class _ParentsChecklistDisclaimerState
               ),
               const Text(
                 'Please read the information given below carefully',
-                style: TextStyle(fontSize: 24),
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Color(0xFF1B383A),
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -51,11 +56,11 @@ class _ParentsChecklistDisclaimerState
                 child: ListView(
                   children: [
                     ListTile(
-                      leading: const Icon(
-                        Icons.east,
-                        color: Color(0xFF558B2F),
-                        size: 32,
-                      ),
+                      // leading: const Icon(
+                      //   Icons.east,
+                      //   color: Color(0xFF558B2F),
+                      //   size: 32,
+                      // ),
                       title: RichText(
                         text: const TextSpan(
                           text: '',
@@ -64,15 +69,16 @@ class _ParentsChecklistDisclaimerState
                             TextSpan(
                               text: 'Disclaimer of Medical Advice\n',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.black),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Color(0xFF1B383A),
+                              ),
                             ),
                             TextSpan(
                               text:
                                   'Our app is designed to provide information and insights into potential learning disabilities in children. However, it is not intended to replace professional medical advice or diagnosis. It is important to consult with a qualified healthcare provider if you have any concerns about your child\'s health or learning abilities.',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF1B383A),
                                 fontSize: 16,
                               ),
                             ),
@@ -81,11 +87,11 @@ class _ParentsChecklistDisclaimerState
                       ),
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.east,
-                        color: Color(0xFF558B2F),
-                        size: 32,
-                      ),
+                      // leading: const Icon(
+                      //   Icons.east,
+                      //   color: Color(0xFF558B2F),
+                      //   size: 32,
+                      // ),
                       title: RichText(
                         text: const TextSpan(
                           text: '',
@@ -96,13 +102,13 @@ class _ParentsChecklistDisclaimerState
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Colors.black),
+                                  color: Color(0xFF1B383A)),
                             ),
                             TextSpan(
                               text:
                                   'While we have taken every effort to ensure the accuracy of our app, we cannot guarantee that the results are 100% accurate. Our app is not a substitute for a professional assessment and is meant to be used only as a screening tool.',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF1B383A),
                                 fontSize: 16,
                               ),
                             ),
@@ -111,11 +117,11 @@ class _ParentsChecklistDisclaimerState
                       ),
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.east,
-                        color: Color(0xFF558B2F),
-                        size: 32,
-                      ),
+                      // leading: const Icon(
+                      //   Icons.east,
+                      //   color: Color(0xFF558B2F),
+                      //   size: 32,
+                      // ),
                       title: RichText(
                         text: const TextSpan(
                           text: '',
@@ -126,13 +132,13 @@ class _ParentsChecklistDisclaimerState
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Colors.black),
+                                  color: Color(0xFF1B383A)),
                             ),
                             TextSpan(
                               text:
                                   'Our app is not a comprehensive evaluation of a child\'s learning abilities. It is designed to detect specific learning disabilities and is not intended to be used as a diagnostic tool for other developmental or cognitive disorders.',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF1B383A),
                                 fontSize: 16,
                               ),
                             ),
@@ -141,11 +147,11 @@ class _ParentsChecklistDisclaimerState
                       ),
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.east,
-                        color: Color(0xFF558B2F),
-                        size: 32,
-                      ),
+                      // leading: const Icon(
+                      //   Icons.east,
+                      //   color: Color(0xFF558B2F),
+                      //   size: 32,
+                      // ),
                       title: RichText(
                         text: const TextSpan(
                           text: '',
@@ -156,13 +162,13 @@ class _ParentsChecklistDisclaimerState
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Colors.black),
+                                  color: Color(0xFF1B383A)),
                             ),
                             TextSpan(
                               text:
                                   'We take privacy and data protection very seriously. We will not share any personal information about you or your child with third parties without your consent. However, it is important to note that the app collects data for research purposes and may use it to improve the app\'s functionality.',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF1B383A),
                                 fontSize: 16,
                               ),
                             ),
@@ -171,11 +177,11 @@ class _ParentsChecklistDisclaimerState
                       ),
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.east,
-                        color: Color(0xFF558B2F),
-                        size: 32,
-                      ),
+                      // leading: const Icon(
+                      //   Icons.east,
+                      //   color: Color(0xFF558B2F),
+                      //   size: 32,
+                      // ),
                       title: RichText(
                         text: const TextSpan(
                           text: '',
@@ -186,13 +192,13 @@ class _ParentsChecklistDisclaimerState
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Colors.black),
+                                  color: Color(0xFF1B383A)),
                             ),
                             TextSpan(
                               text:
                                   'Children under the age of 18 should only use this app under the supervision of a parent or guardian. It is important to ensure that the child fully understands the purpose of the app and how to use it before starting the screening process.',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xFF1B383A),
                                 fontSize: 16,
                               ),
                             ),

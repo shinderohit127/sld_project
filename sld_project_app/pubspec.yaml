@@ -43,6 +43,7 @@ dependencies:
   intl_phone_field: ^3.1.0
   cloud_firestore: ^4.4.3
   firebase_database: ^10.0.14
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,16 @@ flutter:
         - assets/logos/profile.png
         - assets/logos/sync.png
         - assets/logos/badge_logo.png
+        - assets/updated_logos/Checklists-removebg-preview.png
+        - assets/updated_logos/General_Information-removebg-preview.png
+        - assets/updated_logos/Gamification-removebg-preview.png
+        - assets/updated_logos/My_reports-removebg-preview.png
+        - assets/updated_logos/Welcome-removebg-preview.png
+        - assets/updated_logos/Welcome_alternative-removebg-preview.png
+        - assets/updated_logos/User_Friendly-removebg-preview.png
+        - assets/updated_logos/Data_Privacy-removebg-preview.png
+        - assets/updated_logos/Early_Detection-removebg-preview.png
+        - assets/1443.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

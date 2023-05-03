@@ -10,6 +10,9 @@ import 'package:sld_project_app/screens/profile/profile_view.dart';
 import 'package:sld_project_app/screens/questionnaire/disclaimers/parent_checklist_disclaimer.dart';
 import 'package:sld_project_app/screens/questionnaire/disclaimers/teachers_checklist_disclaimer.dart';
 
+//globals
+import 'package:sld_project_app/globals.dart' as globals;
+
 // firebase database
 import 'package:firebase_database/firebase_database.dart';
 
@@ -21,477 +24,379 @@ class TeacherHomePage extends StatefulWidget {
 }
 
 class TeacherHomePageState extends State<TeacherHomePage> {
+  String name = "";
+  String contactNumber = "";
+  String email = "";
+  List students = [];
+
   @override
   void initState() {
     super.initState();
+    getData();
   }
 
   final userEmail = FirebaseAuth.instance.currentUser!.email;
-  Map<String, dynamic> docRef = {
-    "contactNumber": "",
-    "name": "",
-    "email": "",
-    "students": []
-  };
-  getData() async {
-    final db = FirebaseFirestore.instance;
-    this.docRef = await db
-        .collection("teachers")
+
+  Future<void> getData() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('teachers')
         .doc(userEmail)
-        .get()
-        .then((DocumentSnapshot doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      print(data);
-      return data;
-    });
-    print(this.docRef["email"]);
+        .get();
+    if (snapshot.exists) {
+      final data = snapshot.data();
+      if (mounted) {
+        setState(() {
+          name = data!["name"];
+          contactNumber = data["contactNumber"];
+          email = data["email"];
+          students = data["students"];
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xffF7EBE1),
-        elevation: 0.0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.blue, // Navigation bar
-          // statusBarColor: Color(0xffFBB97C), // Status bar
-        ),
-        iconTheme: const IconThemeData(color: Color(0xFF1B383A)),
-        actions: [
-          // help view redirect
-          IconButton(
-            icon: const Icon(Icons.help_outline),
-            iconSize: 26,
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const HelpView(),
-              ));
-            },
-            padding: const EdgeInsets.only(right: 8),
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.all(8.0),
-          children: [
-            DrawerHeader(
-              child: Text(
-                "Welcome \n${this.docRef["name"]}!",
-                style: TextStyle(
-                  fontSize: 32,
-                ),
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xffFFFDC5),
+          elevation: 0.0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+              // systemNavigationBarColor: Colors.blue, // Navigation bar
+              // statusBarColor: Color(0xffFBB97C), // Status bar
               ),
-            ),
-            ListTile(
-              title: const Text('Profile'),
-              leading: Image.asset(
-                "assets/logos/profile.png",
-                scale: 1.0,
-                height: 25.0,
-                width: 25.0,
-              ),
-              onTap: () {
+          iconTheme: const IconThemeData(color: Color(0xFF1B383A)),
+          actions: [
+            // help view redirect
+            IconButton(
+              icon: const Icon(Icons.help_outline),
+              iconSize: 26,
+              onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ProfileView(),
+                  builder: (context) => const HelpView(),
                 ));
               },
-            ),
-            ListTile(
-              leading: Image.asset(
-                "assets/logos/sync.png",
-                scale: 1.0,
-                height: 25.0,
-                width: 25.0,
-              ),
-              title: const Text('Sync your progress here'),
-              onTap: () {
-                // Update the state of the app.
-              },
-            ),
-            ListTile(
-              leading: Image.asset(
-                "assets/logos/logout.png",
-                scale: 1.0,
-                height: 25.0,
-                width: 25.0,
-              ),
-              title: const Text('Sign Out'),
-              onTap: () => FirebaseAuth.instance.signOut(),
+              padding: const EdgeInsets.only(right: 8),
             ),
           ],
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: const Color(0xffF7EBE1),
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Find Your Consultation",
-                style: TextStyle(
-                    color: Color(0xFF1B383A),
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                height: 50,
-                decoration: BoxDecoration(
-                    color: const Color(0xffF7EBE1),
-                    borderRadius: BorderRadius.circular(14)),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search here",
-                    prefixIcon: IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {},
-                    ),
-                    // border: OutlineInputBorder(
-                    //   borderRadius: BorderRadius.circular(20),
-                    // ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.all(8.0),
+            children: [
+              DrawerHeader(
+                child: Text(
+                  "Welcome \n$name!",
+                  style: TextStyle(
+                    fontSize: 32,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Screening Phases",
-                style: TextStyle(
-                    color: Color(0xFF1B383A),
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (context) => const ParentsChecklistDisclaimer(),
-              //     ));
-              //   },
-              //   child: Container(
-              //     width: double.infinity,
-              //     margin: const EdgeInsets.only(top: 16, bottom: 16),
-              //     decoration: BoxDecoration(
-              //         color: Color(0xffFBB97C),
-              //         borderRadius: BorderRadius.circular(24)),
-              //     padding: const EdgeInsets.all(16),
-              //     child: Row(
-              //       children: [
-              //         Expanded(
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             children: const [
-              //               Text(
-              //                 "Checklist for Parents",
-              //                 style:
-              //                     TextStyle(color: Colors.white, fontSize: 20),
-              //                 softWrap: true,
-              //               ),
-              //               SizedBox(
-              //                 height: 6,
-              //               ),
-              //               Text(
-              //                 'Here is a brief description about the checklist. Checklist description needed here.',
-              //                 softWrap: true,
-              //                 style:
-              //                     TextStyle(color: Colors.white, fontSize: 13),
-              //               ),
-              //               SizedBox(
-              //                 height: 10,
-              //               ),
-              //               Text(
-              //                 "Progress: 40%",
-              //                 style: TextStyle(
-              //                     fontWeight: FontWeight.bold,
-              //                     color: Colors.white,
-              //                     fontSize: 16),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //         Expanded(
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.end,
-              //             mainAxisAlignment: MainAxisAlignment.center,
-              //             children: [
-              //               Image.asset(
-              //                 "assets/img1.png",
-              //                 height: 160,
-              //                 fit: BoxFit.fitHeight,
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 5,
-              // ),
-
-              GestureDetector(
+              ListTile(
+                title: const Text('Profile'),
+                leading: Image.asset(
+                  "assets/logos/profile.png",
+                  scale: 1.0,
+                  height: 25.0,
+                  width: 25.0,
+                ),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const TeacherChecklistDisclaimer(),
+                    builder: (context) => const ProfileView(),
                   ));
                 },
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 16, bottom: 16),
-                  decoration: BoxDecoration(
-                      color: Color(0xffF69383),
-                      borderRadius: BorderRadius.circular(24)),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Checklist for Teachers",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                              softWrap: true,
-                            ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              'Here is a brief description about the checklist. Checklist description needed here.',
-                              softWrap: true,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 13),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Progress: 70%",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/img2.png",
-                              height: 160,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+              ),
+              ListTile(
+                leading: Image.asset(
+                  "assets/logos/sync.png",
+                  scale: 1.0,
+                  height: 25.0,
+                  width: 25.0,
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-
-              GestureDetector(
+                title: const Text('Sync your progress here'),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SLDInfoView(),
-                  ));
+                  // Update the state of the app.
                 },
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 16, bottom: 16),
-                  decoration: BoxDecoration(
-                      color: Color(0xffEACBCB),
-                      borderRadius: BorderRadius.circular(24)),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "General Information about Specific Learning Disabilities",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                              softWrap: true,
-                            ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              "Find out more about SLDs. Click here to get started",
-                              softWrap: true,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 13),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/img3.png",
-                              height: 160,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              ),
+              ListTile(
+                  leading: Image.asset(
+                    "assets/logos/logout.png",
+                    scale: 1.0,
+                    height: 25.0,
+                    width: 25.0,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              // GestureDetector(
-              //   onTap: () {},
-              //   child: Container(
-              //     width: double.infinity,
-              //     margin: const EdgeInsets.only(top: 16, bottom: 16),
-              //     decoration: BoxDecoration(
-              //         color: Color(0xffFBB97C),
-              //         borderRadius: BorderRadius.circular(24)),
-              //     padding: const EdgeInsets.all(16),
-              //     child: Row(
-              //       children: [
-              //         Expanded(
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             children: const [
-              //               Text(
-              //                 "Gamified Checklist for Children",
-              //                 style:
-              //                     TextStyle(color: Colors.white, fontSize: 20),
-              //                 softWrap: true,
-              //               ),
-              //               SizedBox(
-              //                 height: 6,
-              //               ),
-              //               Text(
-              //                 "This is a Gamified checklist intented for children to take. Click here to get started",
-              //                 softWrap: true,
-              //                 style:
-              //                     TextStyle(color: Colors.white, fontSize: 13),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //         Expanded(
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.end,
-              //             mainAxisAlignment: MainAxisAlignment.start,
-              //             children: [
-              //               Image.asset(
-              //                 "assets/img2.png",
-              //                 height: 160,
-              //                 fit: BoxFit.fitHeight,
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 16, bottom: 16),
-                  decoration: BoxDecoration(
-                      color: Colors.pink[200],
-                      borderRadius: BorderRadius.circular(24)),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "My Reports",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                              softWrap: true,
-                            ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              "Check your reports here",
-                              softWrap: true,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 13),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/img1.png",
-                              height: 160,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              // Text(
-              //   "Doctos",
-              //   style: TextStyle(
-              //       color: Colors.black87.withOpacity(0.8),
-              //       fontSize: 25,
-              //       fontWeight: FontWeight.w600),
-              // ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // DoctorsTile()
+                  title: const Text('Sign Out'),
+                  onTap: () => {
+                        globals.role = "",
+                        FirebaseAuth.instance.signOut(),
+                      }),
             ],
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            color: const Color(0xffFFFDC5),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Find Your Consultation",
+                  style: TextStyle(
+                      color: Color(0xFF1B383A),
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: const Color(0xffFFFDC5),
+                      borderRadius: BorderRadius.circular(14)),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search here",
+                      prefixIcon: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () {},
+                      ),
+                      // border: OutlineInputBorder(
+                      //   borderRadius: BorderRadius.circular(20),
+                      // ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Screening Phases",
+                  style: TextStyle(
+                      color: Color(0xFF1B383A),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const TeacherChecklistDisclaimer(),
+                    ));
+                  },
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      // margin: const EdgeInsets.only(top: 16, bottom: 16),
+                      decoration: BoxDecoration(
+                          color: Color(0xffFFD998),
+                          borderRadius: BorderRadius.circular(24)),
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "Checklist for Teachers",
+                                  style: TextStyle(
+                                      color: Color(0xffCC630B),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                  softWrap: true,
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  'Here is a brief description about the checklist. Checklist description needed here.',
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      color: Color(0xffCC630B), fontSize: 13),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Progress: 70%",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffCC630B),
+                                      fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/updated_logos/Checklists-removebg-preview.png",
+                                  height: 120,
+                                  width: 120,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SLDInfoView(),
+                    ));
+                  },
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24)),
+                    child: Container(
+                      width: double.infinity,
+                      // margin: const EdgeInsets.only(top: 16, bottom: 16),
+                      decoration: BoxDecoration(
+                          color: Color(0xffFED2D2),
+                          borderRadius: BorderRadius.circular(24)),
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "General Information about Specific Learning Disabilities",
+                                  style: TextStyle(
+                                      color: Color(0xff721313),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                  softWrap: true,
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  "Find out more about SLDs. Click here to get started",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      color: Color(0xff721313), fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/updated_logos/General_Information-removebg-preview.png",
+                                  height: 120,
+                                  width: 120,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24)),
+                    child: Container(
+                      width: double.infinity,
+                      // margin: const EdgeInsets.only(top: 16, bottom: 16),
+                      decoration: BoxDecoration(
+                          color: Color(0xffFDD7B1),
+                          borderRadius: BorderRadius.circular(24)),
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "My Reports",
+                                  style: TextStyle(
+                                      color: Color(0xff634D37),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                  softWrap: true,
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  "Check your reports here",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      color: Color(0xff634D37), fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/updated_logos/My_reports-removebg-preview.png",
+                                  height: 120,
+                                  width: 120,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sld_project_app/screens/auth_screen/register_screen.dart';
 import 'package:sld_project_app/screens/auth_screen/teacher_register_screen.dart';
 import 'package:sld_project_app/screens/auth_screen/user_register_screen.dart';
+import 'package:sld_project_app/main.dart';
 
 class RoleSelectView extends StatefulWidget {
   const RoleSelectView({super.key});
@@ -99,14 +100,14 @@ class _RoleSelectViewState extends State<RoleSelectView> {
             ElevatedButton(
               onPressed: () {
                 if (isParentTapped) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const UserRegistrationScreen(),
                     ),
                   );
                 } else {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
