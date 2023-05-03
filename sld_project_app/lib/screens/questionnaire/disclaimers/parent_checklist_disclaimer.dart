@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sld_project_app/screens/questionnaire/checklists/parents/parents_checklist.dart';
+import 'package:sld_project_app/screens/questionnaire/checklists/parents/parent_1family.dart';
 
 class ParentsChecklistDisclaimer extends StatefulWidget {
   const ParentsChecklistDisclaimer({super.key});
@@ -239,7 +239,7 @@ class _ParentsChecklistDisclaimerState
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ParentsChecklist(),
+                          builder: (context) => Parent_1Family(),
                         ));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
