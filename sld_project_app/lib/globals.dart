@@ -8,4 +8,5 @@ String tName = "";
 String tEmail = "";
 List students = [];
 
-// user details
+List<int> parentResponses = List<int>.filled(65, 0);
+List<int> teacherResponses = List<int>.filled(52, 0);

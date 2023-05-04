@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sld_project_app/screens/questionnaire/checklists/parents/parent_3social.dart';
+import 'package:sld_project_app/globals.dart';
 
 class Parent_2Emotional extends StatefulWidget {
   @override
@@ -18,7 +20,14 @@ class _Parent_2EmotionalState extends State<Parent_2Emotional> {
 
   void submitCategory() {
     print(selectedOptions_cat2);
-    print(progressCounter);
+    // print(progressCounter);
+
+    // addresponses to global list
+    parentResponses[12] = (_selectedOption1 == "YES" ? 1 : 0);
+    parentResponses[13] = (_selectedOption2 == "YES" ? 1 : 0);
+    parentResponses[14] = (_selectedOption3 == "YES" ? 1 : 0);
+    parentResponses[15] = (_selectedOption4 == "YES" ? 1 : 0);
+    parentResponses[16] = (_selectedOption5 == "YES" ? 1 : 0);
   }
 
   int progressCounter = 0;
