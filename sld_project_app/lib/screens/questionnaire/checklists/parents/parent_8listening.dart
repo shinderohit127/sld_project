@@ -1,28 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sld_project_app/screens/questionnaire/checklists/parents/parent_3social.dart';
 import 'package:sld_project_app/globals.dart';
-import 'package:sld_project_app/screens/questionnaire/checklists/parents/parent_4attention.dart';
+import 'package:sld_project_app/screens/questionnaire/checklists/parents/parent_9reading.dart';
 
-class Parent_3Social extends StatefulWidget {
+class Parent_8Listening extends StatefulWidget {
   @override
-  _Parent_3SocialState createState() => _Parent_3SocialState();
+  _Parent_8ListeningState createState() => _Parent_8ListeningState();
 }
 
-class _Parent_3SocialState extends State<Parent_3Social> {
+class _Parent_8ListeningState extends State<Parent_8Listening> {
   String _selectedOption1 = '';
   String _selectedOption2 = '';
   String _selectedOption3 = '';
+  String _selectedOption4 = '';
+  String _selectedOption5 = '';
+  // String _selectedOption6 = '';
 
-  List<int> selectedOptions_cat3 = List.generate(3, (_) => 0);
+  List<int> selectedOptions_cat6 = List.generate(5, (_) => 0);
 
   void submitCategory() {
-    print(selectedOptions_cat3);
+    print(selectedOptions_cat6);
     // print(progressCounter);
-    parentResponses[17] = (_selectedOption1 == "YES" ? 1 : 0);
-    parentResponses[18] = (_selectedOption2 == "YES" ? 1 : 0);
-    parentResponses[19] = (_selectedOption3 == "YES" ? 1 : 0);
+    parentResponses[26] = (_selectedOption1 == "YES" ? 1 : 0);
+    parentResponses[27] = (_selectedOption2 == "YES" ? 1 : 0);
+    parentResponses[28] = (_selectedOption3 == "YES" ? 1 : 0);
+    parentResponses[29] = (_selectedOption4 == "YES" ? 1 : 0);
+    parentResponses[30] = (_selectedOption5 == "YES" ? 1 : 0);
+    // parentResponses[25] = (_selectedOption6 == "YES" ? 1 : 0);
   }
 
   int progressCounter = 0;
@@ -50,7 +55,7 @@ class _Parent_3SocialState extends State<Parent_3Social> {
               children: [
                 // QUESTION 1
                 const Text(
-                  'Category 3: Social',
+                  'Category 8: Listening',
                   style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
@@ -58,7 +63,7 @@ class _Parent_3SocialState extends State<Parent_3Social> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  '1. Does the child often resist authority? {e.g., argue with or frequently disobey parents and/or other elders and/or teachers}',
+                  '1. Does the child often struggle to follow spoken directions or explanations, especially when there are no illustrations?',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -82,7 +87,7 @@ class _Parent_3SocialState extends State<Parent_3Social> {
 
                 // QUESTION 2
                 Text(
-                  '2. Does the child often appear to not pick up on other people’s moods/feelings (e.g., may say the wrong thing at the wrong time)?',
+                  '2. Does the child often have difficulty following verbal jokes or a story read aloud by an adult?',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -106,7 +111,7 @@ class _Parent_3SocialState extends State<Parent_3Social> {
 
                 // QUESTION 3
                 Text(
-                  '3. Does the child have difficulty engaging in play with their peers and maintaining or initiating positive verbal communication/conversation with them?',
+                  "3. Does the child often have difficulty understanding spoken language when there is a lot of background noise?",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -128,28 +133,100 @@ class _Parent_3SocialState extends State<Parent_3Social> {
                 ),
                 SizedBox(height: 16),
 
+                // QUESTION 3
+                Text(
+                  '4. Does the child often struggle to participate in extended conversations or miss parts of conversations?',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1B383A)),
+                ),
+                SizedBox(height: 8),
+                ..._options.map(
+                  (option) => RadioListTile(
+                    title: Text(option),
+                    value: option,
+                    groupValue: _selectedOption3,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedOption3 = value!;
+                        progressCounter++;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // // QUESTION 3
+                // Text(
+                //   '5. Does the child have trouble learning their way around a new place; or are they easily lost or confused in unfamiliar surroundings?',
+                //   style: TextStyle(
+                //       fontSize: 18,
+                //       fontWeight: FontWeight.bold,
+                //       color: Color(0xFF1B383A)),
+                // ),
+                // SizedBox(height: 8),
+                // ..._options.map(
+                //   (option) => RadioListTile(
+                //     title: Text(option),
+                //     value: option,
+                //     groupValue: _selectedOption3,
+                //     onChanged: (value) {
+                //       setState(() {
+                //         _selectedOption3 = value!;
+                //         progressCounter++;
+                //       });
+                //     },
+                //   ),
+                // ),
+                // SizedBox(height: 16),
+
+                // // QUESTION 3
+                // Text(
+                //   '6. Does the child fail to pay close attention to details or makes careless mistakes in their homework or other activities?',
+                //   style: TextStyle(
+                //       fontSize: 18,
+                //       fontWeight: FontWeight.bold,
+                //       color: Color(0xFF1B383A)),
+                // ),
+                // SizedBox(height: 8),
+                // ..._options.map(
+                //   (option) => RadioListTile(
+                //     title: Text(option),
+                //     value: option,
+                //     groupValue: _selectedOption3,
+                //     onChanged: (value) {
+                //       setState(() {
+                //         _selectedOption3 = value!;
+                //         progressCounter++;
+                //       });
+                //     },
+                //   ),
+                // ),
+                // SizedBox(height: 16),
+
                 Center(
                     child: ElevatedButton(
                   child: Text("Next"),
                   onPressed: () {
                     if (_selectedOption1 == "YES") {
-                      selectedOptions_cat3[0] = 1;
+                      selectedOptions_cat6[0] = 1;
                     } else {
-                      selectedOptions_cat3[0] = 0;
+                      selectedOptions_cat6[0] = 0;
                     }
                     if (_selectedOption2 == "YES") {
-                      selectedOptions_cat3[1] = 1;
+                      selectedOptions_cat6[1] = 1;
                     } else {
-                      selectedOptions_cat3[1] = 0;
+                      selectedOptions_cat6[1] = 0;
                     }
-                    if (_selectedOption3 == "YES") {
-                      selectedOptions_cat3[2] = 1;
-                    } else {
-                      selectedOptions_cat3[2] = 0;
-                    }
+                    // if (_selectedOption3 == "YES") {
+                    //   selectedOptions_cat6[2] = 1;
+                    // } else {
+                    //   selectedOptions_cat6[2] = 0;
+                    // }
                     submitCategory();
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => Parent_4Attention()));
+                        builder: (context) => Parent_9Reading()));
                   },
                   style: ButtonStyle(
                     textStyle: MaterialStateProperty.all(

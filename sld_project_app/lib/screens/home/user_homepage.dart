@@ -16,6 +16,7 @@ import 'package:sld_project_app/globals.dart' as globals;
 
 // firebase database
 import 'package:firebase_database/firebase_database.dart';
+import 'package:sld_project_app/screens/reports/report_tab_screen.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -98,19 +99,19 @@ class UserHomePageState extends State<UserHomePage> {
             // statusBarColor: Color(0xffFBB97C), // Status bar
           ),
           iconTheme: const IconThemeData(color: Color(0xFF1B383A)),
-          actions: [
-            // help view redirect
-            IconButton(
-              icon: const Icon(Icons.help_outline),
-              iconSize: 26,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HelpView(),
-                ));
-              },
-              padding: const EdgeInsets.only(right: 8),
-            ),
-          ],
+          // actions: [
+          //   // help view redirect
+          //   IconButton(
+          //     icon: const Icon(Icons.help_outline),
+          //     iconSize: 26,
+          //     onPressed: () {
+          //       Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => const HelpView(),
+          //       ));
+          //     },
+          //     padding: const EdgeInsets.only(right: 8),
+          //   ),
+          // ],
         ),
         drawer: Drawer(
           child: ListView(
@@ -138,18 +139,18 @@ class UserHomePageState extends State<UserHomePage> {
                   ));
                 },
               ),
-              ListTile(
-                leading: Image.asset(
-                  "assets/logos/sync.png",
-                  scale: 1.0,
-                  height: 25.0,
-                  width: 25.0,
-                ),
-                title: const Text('Sync your progress here'),
-                onTap: () {
-                  // Update the state of the app.
-                },
-              ),
+              // ListTile(
+              //   leading: Image.asset(
+              //     "assets/logos/sync.png",
+              //     scale: 1.0,
+              //     height: 25.0,
+              //     width: 25.0,
+              //   ),
+              //   title: const Text('Sync your progress here'),
+              //   onTap: () {
+              //     // Update the state of the app.
+              //   },
+              // ),
               ListTile(
                   leading: Image.asset(
                     "assets/logos/logout.png",
@@ -187,7 +188,7 @@ class UserHomePageState extends State<UserHomePage> {
                   height: 10,
                 ),
                 Text(
-                  "Find Your Consultation",
+                  "Get Started with Your Journey Now!",
                   style: TextStyle(
                       color: Color(0xFF1B383A),
                       fontSize: 30,
@@ -264,21 +265,21 @@ class UserHomePageState extends State<UserHomePage> {
                                   height: 6,
                                 ),
                                 Text(
-                                  'Here is a brief description about the checklist. Checklist description needed here.',
+                                  "This checklist is a tool designed to help parents screen their children for signs of Specific Learning Disabilities (SLDs) at an early stage.",
                                   softWrap: true,
                                   style: TextStyle(
                                       color: Color(0xff3A7D5F), fontSize: 13),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Progress: 40%",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff3A7D5F),
-                                      fontSize: 16),
-                                ),
+                                // SizedBox(
+                                //   height: 10,
+                                // ),
+                                // Text(
+                                //   "Progress: 40%",
+                                //   style: TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       color: Color(0xff3A7D5F),
+                                //       fontSize: 16),
+                                // ),
                               ],
                             ),
                           ),
@@ -371,70 +372,73 @@ class UserHomePageState extends State<UserHomePage> {
                 const SizedBox(
                   height: 10,
                 ),
+                // GestureDetector(
+                //   onTap: () {},
+                //   child: Card(
+                //     elevation: 5,
+                //     shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(24)),
+                //     child: Container(
+                //       width: double.infinity,
+                //       // margin: const EdgeInsets.only(top: 16, bottom: 16),
+                //       decoration: BoxDecoration(
+                //           color: Color(0xffE0DAFE),
+                //           borderRadius: BorderRadius.circular(24)),
+                //       padding: const EdgeInsets.all(16),
+                //       child: Row(
+                //         children: [
+                //           Expanded(
+                //             child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               mainAxisAlignment: MainAxisAlignment.start,
+                //               children: const [
+                //                 Text(
+                //                   "Gamified Checklist for Children",
+                //                   style: TextStyle(
+                //                       color: Color(0xff7264BC),
+                //                       fontSize: 20,
+                //                       fontWeight: FontWeight.bold),
+                //                   softWrap: true,
+                //                 ),
+                //                 SizedBox(
+                //                   height: 6,
+                //                 ),
+                //                 Text(
+                //                   "This is a Gamified checklist intented for children to take. Click here to get started",
+                //                   softWrap: true,
+                //                   style: TextStyle(
+                //                       color: Color(0xff7264BC), fontSize: 13),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           Expanded(
+                //             child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.end,
+                //               mainAxisAlignment: MainAxisAlignment.start,
+                //               children: [
+                //                 Image.asset(
+                //                   "assets/updated_logos/Gamification-removebg-preview.png",
+                //                   height: 120,
+                //                   width: 120,
+                //                   fit: BoxFit.fitHeight,
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 GestureDetector(
-                  onTap: () {},
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24)),
-                    child: Container(
-                      width: double.infinity,
-                      // margin: const EdgeInsets.only(top: 16, bottom: 16),
-                      decoration: BoxDecoration(
-                          color: Color(0xffE0DAFE),
-                          borderRadius: BorderRadius.circular(24)),
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  "Gamified Checklist for Children",
-                                  style: TextStyle(
-                                      color: Color(0xff7264BC),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                  softWrap: true,
-                                ),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Text(
-                                  "This is a Gamified checklist intented for children to take. Click here to get started",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                      color: Color(0xff7264BC), fontSize: 13),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  "assets/updated_logos/Gamification-removebg-preview.png",
-                                  height: 120,
-                                  width: 120,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ReportTabScreen()));
+                  },
                   child: Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(

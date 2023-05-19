@@ -51,6 +51,16 @@ class _ParentsChecklistDisclaimerState
               const SizedBox(
                 height: 10,
               ),
+              const Text(
+                "Please complete the checklist in one go. Leaving mid-way through the checklist won't save your progress!",
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Color(0xFF1B383A),
+                    fontWeight: FontWeight.w900),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Expanded(
                 flex: 8,
                 child: ListView(

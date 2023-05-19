@@ -18,6 +18,7 @@ class _RoleSelectViewState extends State<RoleSelectView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffFFFDC5),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
@@ -49,7 +50,7 @@ class _RoleSelectViewState extends State<RoleSelectView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Image.asset("assets/img1.png"),
+                      Image.asset("assets/parent-png.png"),
                       Text(
                         "Parent",
                         style: TextStyle(
@@ -83,7 +84,7 @@ class _RoleSelectViewState extends State<RoleSelectView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Image.asset("assets/img1.png"),
+                      Image.asset("assets/Teacher-PNG.png"),
                       Text(
                         "Teacher",
                         style: TextStyle(

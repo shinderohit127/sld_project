@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^4.4.3
   firebase_database: ^10.0.14
   shared_preferences: ^2.0.18
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -84,7 +85,10 @@ flutter:
         - assets/updated_logos/User_Friendly-removebg-preview.png
         - assets/updated_logos/Data_Privacy-removebg-preview.png
         - assets/updated_logos/Early_Detection-removebg-preview.png
+        - assets/updated_logos/Good_Results-removebg-preview.png
         - assets/1443.jpg
+        - assets/parent-png.png
+        - assets/Teacher-PNG.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

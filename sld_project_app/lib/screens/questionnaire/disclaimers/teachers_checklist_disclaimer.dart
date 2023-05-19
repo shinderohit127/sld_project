@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sld_project_app/screens/questionnaire/checklists/parents/parent_2emotional.dart';
 import 'package:sld_project_app/screens/questionnaire/checklists/teachers/teachers_checklist.dart';
+
+import '../checklists/parents/parent_1family.dart';
 
 class TeacherChecklistDisclaimer extends StatefulWidget {
   const TeacherChecklistDisclaimer({super.key});
@@ -21,6 +24,7 @@ class _TeacherChecklistDisclaimerState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF7EBE1),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
@@ -42,6 +46,16 @@ class _TeacherChecklistDisclaimerState
               const Text(
                 'Please read the information given below carefully',
                 style: TextStyle(fontSize: 24),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Please complete the checklist in one go. Leaving mid-way through the checklist won't save your progress!",
+                style: TextStyle(
+                    fontSize: 24,
+                    color: Color(0xFF1B383A),
+                    fontWeight: FontWeight.w900),
               ),
               const SizedBox(
                 height: 10,
@@ -233,7 +247,7 @@ class _TeacherChecklistDisclaimerState
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const TeachersChecklist(),
+                          builder: (context) => Parent_2Emotional(),
                         ));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

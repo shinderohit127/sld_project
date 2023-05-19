@@ -16,6 +16,8 @@ import 'package:sld_project_app/globals.dart' as globals;
 // firebase database
 import 'package:firebase_database/firebase_database.dart';
 
+import '../reports/report_tab_screen.dart';
+
 class TeacherHomePage extends StatefulWidget {
   const TeacherHomePage({super.key});
 
@@ -71,19 +73,19 @@ class TeacherHomePageState extends State<TeacherHomePage> {
               // statusBarColor: Color(0xffFBB97C), // Status bar
               ),
           iconTheme: const IconThemeData(color: Color(0xFF1B383A)),
-          actions: [
-            // help view redirect
-            IconButton(
-              icon: const Icon(Icons.help_outline),
-              iconSize: 26,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HelpView(),
-                ));
-              },
-              padding: const EdgeInsets.only(right: 8),
-            ),
-          ],
+          // actions: [
+          //   // help view redirect
+          //   IconButton(
+          //     icon: const Icon(Icons.help_outline),
+          //     iconSize: 26,
+          //     onPressed: () {
+          //       Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => const HelpView(),
+          //       ));
+          //     },
+          //     padding: const EdgeInsets.only(right: 8),
+          //   ),
+          // ],
         ),
         drawer: Drawer(
           child: ListView(
@@ -111,18 +113,18 @@ class TeacherHomePageState extends State<TeacherHomePage> {
                   ));
                 },
               ),
-              ListTile(
-                leading: Image.asset(
-                  "assets/logos/sync.png",
-                  scale: 1.0,
-                  height: 25.0,
-                  width: 25.0,
-                ),
-                title: const Text('Sync your progress here'),
-                onTap: () {
-                  // Update the state of the app.
-                },
-              ),
+              // ListTile(
+              //   leading: Image.asset(
+              //     "assets/logos/sync.png",
+              //     scale: 1.0,
+              //     height: 25.0,
+              //     width: 25.0,
+              //   ),
+              //   title: const Text('Sync your progress here'),
+              //   onTap: () {
+              //     // Update the state of the app.
+              //   },
+              // ),
               ListTile(
                   leading: Image.asset(
                     "assets/logos/logout.png",
@@ -227,21 +229,21 @@ class TeacherHomePageState extends State<TeacherHomePage> {
                                   height: 6,
                                 ),
                                 Text(
-                                  'Here is a brief description about the checklist. Checklist description needed here.',
+                                  "This checklist is a tool designed to help teachers screen their students for signs of Specific Learning Disabilities (SLDs) at an early stage.",
                                   softWrap: true,
                                   style: TextStyle(
                                       color: Color(0xffCC630B), fontSize: 13),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Progress: 70%",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xffCC630B),
-                                      fontSize: 16),
-                                ),
+                                // SizedBox(
+                                //   height: 10,
+                                // ),
+                                // Text(
+                                //   "Progress: 70%",
+                                //   style: TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       color: Color(0xffCC630B),
+                                //       fontSize: 16),
+                                // ),
                               ],
                             ),
                           ),
@@ -334,7 +336,10 @@ class TeacherHomePageState extends State<TeacherHomePage> {
                   height: 10,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ReportTabScreen()));
+                  },
                   child: Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(
